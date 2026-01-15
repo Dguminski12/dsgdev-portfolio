@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Projects from "./pages/Projects.jsx";
+import CV from "./pages/CV.jsx";
 import "./styles/App.css";
 
 function Nav() {
@@ -11,6 +12,7 @@ function Nav() {
         <nav className="nav-links">
           <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           <NavLink to="/projects" className={({ isActive }) => isActive ? "active" : ""}>Projects</NavLink>
+          <NavLink to="/cv" className={({ isActive }) => isActive ? "active" : ""}>CV</NavLink>
           <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
         </nav>
       </div>
@@ -26,6 +28,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/cv" element={<CV />} />
         </Routes>
       </main>
 

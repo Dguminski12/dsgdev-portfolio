@@ -1,0 +1,270 @@
+/* CV Page Styles */
+
+.cv-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cv-header {
+  text-align: center;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+}
+
+.cv-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cv-header .cv-title {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.cv-contact {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.cv-section {
+  margin-bottom: 32px;
+}
+
+.cv-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-summary {
+  padding: 20px 24px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Timeline Styles */
+.cv-timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.cv-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--line);
+}
+
+.cv-timeline-item {
+  position: relative;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cv-timeline-item:hover {
+  border-color: rgba(255,255,255,0.14);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+}
+
+.cv-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -32px;
+  top: 24px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #58a6ff;
+  border: 2px solid var(--bg);
+  z-index: 1;
+}
+
+.cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.cv-item-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.cv-item-company {
+  font-size: 15px;
+  color: #58a6ff;
+  margin: 4px 0;
+}
+
+.cv-item-date {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+  padding: 4px 12px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+.cv-item-description {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.cv-item-description ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.cv-item-description li {
+  margin: 6px 0;
+}
+
+.cv-item-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.cv-tech-tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: rgba(88, 166, 255, 0.15);
+  border: 1px solid rgba(88, 166, 255, 0.3);
+  border-radius: 4px;
+  color: #58a6ff;
+}
+
+/* Skills Grid */
+.cv-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.cv-skill-category {
+  margin-bottom: 16px;
+}
+
+.cv-skill-category h4 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cv-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cv-skill-item {
+  font-size: 13px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+/* Download Section */
+.cv-download {
+  text-align: center;
+  padding: 24px;
+}
+
+.cv-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  background: rgba(59,130,246,0.22);
+  border: 1px solid rgba(59,130,246,0.35);
+  border-radius: 10px;
+  color: var(--text);
+  transition: all 0.15s ease;
+}
+
+.cv-download-btn:hover {
+  background: rgba(59,130,246,0.3);
+  border-color: rgba(59,130,246,0.5);
+  transform: translateY(-2px);
+}
+
+/* Education specific styles */
+.cv-education-item {
+  margin-bottom: 16px;
+}
+
+.cv-degree {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.cv-institution {
+  font-size: 14px;
+  color: #58a6ff;
+  margin: 0 0 4px 0;
+}
+
+.cv-edu-date {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .cv-header h1 {
+    font-size: 28px;
+  }
+  
+  .cv-timeline {
+    padding-left: 24px;
+  }
+  
+  .cv-timeline-item::before {
+    left: -24px;
+  }
+  
+  .cv-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .cv-item-date {
+    align-self: flex-start;
+  }
+  
+  .cv-skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
