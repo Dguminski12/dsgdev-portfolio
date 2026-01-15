@@ -8,7 +8,7 @@ function Nav() {
   return (
     <header className="nav">
       <div className="container nav-inner">
-        <a className="brand" href="/">DSG Development</a>
+        <a className="brand" href="/">Dawid Guminski</a>
         <nav className="nav-links">
           <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           <NavLink to="/projects" className={({ isActive }) => isActive ? "active" : ""}>Projects</NavLink>
@@ -34,7 +34,7 @@ export default function App() {
 
       <footer className="footer">
         <div className="container footer-inner">
-          <span>© {new Date().getFullYear()} DSG Development</span>
+          <span>© {new Date().getFullYear()} Dawid Guminski</span>
           <span className="footer-links">
             <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
             <a href="mailto:youremail@example.com">Email</a>
