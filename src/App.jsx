@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Projects from "./pages/Projects.jsx";
+import "./styles/App.css";
 
 function Nav() {
   return (

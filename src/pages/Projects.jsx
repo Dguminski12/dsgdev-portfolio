@@ -1,63 +1,119 @@
-const PROJECTS = [
-  {
-    name: "FishMate UK",
-    description:
-      "A UK-focused fishing companion app concept. Built to practice full-stack patterns, auth, and a clean UI.",
-    tech: ["React", "TypeScript", "Tailwind", "Supabase", "PWA"],
-    live: "https://fishmate.dsgdev.dev",
-    repo: "https://github.com/"
-  },
-  {
-    name: "Desk Companion (Robotics)",
-    description:
-      "A Raspberry Pi + ESP32 project focused on state machines, non-blocking loops, and hardware/software bridging.",
-    tech: ["Python", "ESP32", "Serial comms", "State machine"],
-    live: "https://labs.dsgdev.dev",
-    repo: "https://github.com/"
-  },
-  {
-    name: "WordPress Support Demo",
-    description:
-      "A WordPress sandbox for learning support workflows: plugin conflicts, performance basics, and small theme changes.",
-    tech: ["WordPress", "PHP (basics)", "Hosting / DNS"],
-    live: "https://wp.dsgdev.dev",
-    repo: ""
-  },
-];
+import { useEffect, useState } from "react";
+import "./styles/Projects.css";
 
-function Tech({ items }) {
-  return (
-    <div className="pill-row">
-      {items.map((t) => (
-        <span className="pill" key={t}>{t}</span>
-      ))}
-    </div>
-  );
+const LANGUAGE_COLORS = {
+    JavaScript: "#f1e05a",
+    TypeScript: "#3178c6",
+    Python: "#3572A5",
+    HTML: "#e34c26",
+    CSS: "#563d7c",
+    Java: "#b07219",
+    C: "#555555",
+    "C++": "#f34b7d",
+    Shell: "#89e051",
+    Go: "#00ADD8"
+};
+
+function GithubProjects() {
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchProjects() {
+            try {
+                const res = await fetch('https://api.github.com/users/dguminski12/repos?sort=updated');
+                const data = await res.json();
+                setProjects(data);
+            } catch (error) {
+                console.error("Error fetching GitHub projects:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchProjects();
+    }, []);
+
+    if (loading) {
+        return <div className="loading">Loading projects...</div>;
+    }
+
+    return (
+        <div className="project-list">
+            {projects.map((project) => (
+                <article className="project-item" key={project.id}>
+                    <div className="project-header">
+                        <h2 className="project-title">
+                            <a 
+                                className="project-title-link" 
+                                href={project.html_url} 
+                                target="_blank" 
+                                rel="noreferrer"
+                            >
+                                {project.name}
+                            </a>
+                        </h2>
+                        <span className="project-visibility">
+                            {project.private ? "Private" : "Public"}
+                        </span>
+                    </div>
+                    
+                    <p className="project-description">
+                        {project.description || "No description provided."}
+                    </p>
+                    
+                    <div className="project-meta">
+                        {project.language && (
+                            <div className="project-meta-item project-language">
+                                <span 
+                                    className="language-dot" 
+                                    style={{ backgroundColor: LANGUAGE_COLORS[project.language] || "#858585" }}
+                                />
+                                <span>{project.language}</span>
+                            </div>
+                        )}
+                        
+                        {project.stargazers_count > 0 && (
+                            <div className="project-meta-item">
+                                <span>⭐</span>
+                                <span>{project.stargazers_count}</span>
+                            </div>
+                        )}
+                        
+                        {project.forks_count > 0 && (
+                            <div className="project-meta-item">
+                                <span>🔱</span>
+                                <span>{project.forks_count}</span>
+                            </div>
+                        )}
+                        
+                        <div className="project-meta-item">
+                            Updated {new Date(project.updated_at).toLocaleDateString()}
+                        </div>
+                    </div>
+
+                    {project.homepage && (
+                        <div className="project-actions">
+                            <a className="btn" href={project.homepage} target="_blank" rel="noreferrer">
+                                🔗 Live Demo
+                            </a>
+                        </div>
+                    )}
+                </article>
+            ))}
+        </div>
+    );
 }
 
 export default function Projects() {
-  return (
-    <section className="stack">
-      <div className="card">
-        <h1>Featured Projects</h1>
-        <p className="sub">
-          A small set of projects I’m actively building and improving. Each has a live link and/or repo.
-        </p>
-      </div>
-
-      <div className="stack">
-        {PROJECTS.map((p) => (
-          <article className="card" key={p.name}>
-            <h2>{p.name}</h2>
-            <p>{p.description}</p>
-            <Tech items={p.tech} />
-            <div className="cta-row">
-              {p.live && <a className="btn primary" href={p.live} target="_blank" rel="noreferrer">Live</a>}
-              {p.repo && <a className="btn" href={p.repo} target="_blank" rel="noreferrer">Repo</a>}
+    return (
+        <section>
+            <div className="card projects-header">
+                <h1>GitHub Projects</h1>
+                <p className="sub">
+                    A dynamic list of my public GitHub repositories, fetched directly from the GitHub API.
+                </p>
             </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
+            <GithubProjects />
+        </section>
+    );
 }

@@ -1,25 +1,74 @@
-const LINKS = [
-  {
-    title: "Featured Projects",
-    url: "/projects",
-    note: "Short write-ups and links to live demos & repos."
-  },
-  {
-    title: "FishMate UK",
-    url: "https://fishmate.dsgdev.dev",
-    note: "UK-focused fishing companion app (PWA)."
-  },
-  {
-    title: "Labs",
-    url: "https://labs.dsgdev.dev",
-    note: "Robotics, Pi, Python, C/C++ learning notes & experiments."
-  },
-  {
-    title: "WordPress Demo",
-    url: "https://wp.dsgdev.dev",
-    note: "Support/dev practice site (theme + plugins)."
-  },
-];
+import { useEffect, useState } from "react";
+import "./styles/Home.css";
+
+const LANGUAGE_COLORS = {
+    JavaScript: "#f1e05a",
+    TypeScript: "#3178c6",
+    Python: "#3572A5",
+    HTML: "#e34c26",
+    CSS: "#563d7c",
+    Java: "#b07219",
+    C: "#555555",
+    "C++": "#f34b7d",
+    Shell: "#89e051",
+    Go: "#00ADD8"
+};
+
+function FeaturedProjects() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const res = await fetch('https://api.github.com/users/dguminski12/repos?sort=updated');
+        const data = await res.json();
+        // Get only the first 4 projects
+        setProjects(data.slice(0, 4));
+      } catch (error) {
+        console.error("Error fetching GitHub projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return <div className="card"><p className="sub">Loading featured projects...</p></div>;
+  }
+
+  return (
+    <>
+      {projects.map((project) => (
+        <a
+          className="card link-card featured-project"
+          key={project.id}
+          href={project.html_url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div className="link-title">
+            {project.name} →
+            {project.language && (
+              <span className="project-lang">
+                <span 
+                  className="language-dot" 
+                  style={{ backgroundColor: LANGUAGE_COLORS[project.language] || "#858585" }}
+                />
+                {project.language}
+              </span>
+            )}
+          </div>
+          <div className="link-note">{project.description || "No description provided."}</div>
+          {project.homepage && (
+            <div className="project-homepage">🔗 Live Demo</div>
+          )}
+        </a>
+      ))}
+    </>
+  );
+}
 
 export default function Home() {
   return (
@@ -44,23 +93,20 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="section-header">
+        <h2>Featured Projects</h2>
+        <p className="sub">Recent repositories from GitHub</p>
+      </div>
+
       <div className="grid">
-        {LINKS.map((l) => (
-          <a
-            className="card link-card"
-            key={l.title}
-            href={l.url}
-            target={l.url.startsWith("http") ? "_blank" : undefined}
-            rel={l.url.startsWith("http") ? "noreferrer" : undefined}
-          >
-            <div className="link-title">{l.title} →</div>
-            <div className="link-note">{l.note}</div>
-          </a>
-        ))}
+        <FeaturedProjects />
+      </div>
+
+      <div className="section-header">
+        <h2>Skills Snapshot</h2>
       </div>
 
       <div className="card">
-        <h2>Skills Snapshot</h2>
         <div className="pill-row">
           <span className="pill">JavaScript</span>
           <span className="pill">React</span>
