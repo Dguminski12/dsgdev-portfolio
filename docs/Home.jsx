@@ -74,7 +74,7 @@ export default function Home() {
   return (
     <section className="stack">
       <div className="hero card">
-        <h1>DSG Development</h1>
+        <h1>Dawid Guminski</h1>
         <p className="sub">
           Junior software developer (in training) with a hands-on background in engineering.
           Building projects across React, Python, and embedded/robotics.
